@@ -46,5 +46,10 @@ namespace lib.tests.Data.Excel
 
             return new ExcelCell();
         }
+
+        public static Maybe<string> CombineValues(ExcelCell a, ExcelCell b)
+        {
+            return "SomeResult";
+        }
     }
 }
