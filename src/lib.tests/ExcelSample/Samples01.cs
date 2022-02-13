@@ -107,7 +107,93 @@ namespace lib.tests.ExcelSample
             }
         }
 
+        public void Step01_Sample_03_Problema_ConjuntoValores()
+        {
+            // Abrir fichero
+            // Recoger excel
+            // encontrar el sheet 
+            // recogert el cellvalue
+
+            var path = string.Empty;
+            var sheetName = string.Empty;
+            var cellReferenceA = string.Empty;
+            var cellReferenceB = string.Empty;
+
+            var cellResult = File.CreateFromPath(path)
+               .Bind((file) => ExcelFile.CreateFromFile(file))
+               .Bind((excelFile) => ExcelSheet.Find(excelFile, sheetName))
+               .Bind((sheet) =>
+               {
+                   var cellValueA = ExcelCell.FindInSheet(sheet, cellReferenceA);
+                   if (!cellValueA.Success)
+                       return Maybe<(ExcelSheet Sheet, ExcelCell CellValueA)>.None();
+                   return (Sheet: sheet, CellValueA: cellValueA.Value);
+               })
+               .Bind((result) =>
+               {
+                   var cellValueB = ExcelCell.FindInSheet(result.Sheet, cellReferenceB);
+                   if (!cellValueB.Success)
+                       return Maybe<(ExcelSheet Sheet, ExcelCell CellValueA, ExcelCell CellValueB)>.None();
+                   return (Sheet: result.Sheet, CellValueA: result.CellValueA, CellValueB: cellValueB.Value);
+               });
+
+            if (cellResult.Success)
+            {
+                // hacer algo con cell value
+            }
+
+        }
+
         public void Step01_Sample_04()
+        {
+            // Abrir fichero
+            // Recoger excel
+            // encontrar el sheet 
+            // recogert el cellvalue
+
+            var path = string.Empty;
+            var sheetName = string.Empty;
+            var cellReference = string.Empty;
+
+            var result = from file in File.CreateFromPath(path)
+                         from excelFile in ExcelFile.CreateFromFile(file)
+                         from sheet in ExcelSheet.Find(excelFile, sheetName)
+                         from cellValue in ExcelCell.FindInSheet(sheet, cellReference)
+                         select cellValue;
+
+            if (result.Success)
+            {
+                // hacer algo con cell value
+            }
+        }
+
+        public void Step01_Sample_04_ConjuntoValores()
+        {
+            // Abrir fichero
+            // Recoger excel
+            // encontrar el sheet 
+            // recogert el cellvalue
+
+            var path = string.Empty;
+            var sheetName = string.Empty;
+            var cellReferenceA = string.Empty;
+            var cellReferenceB = string.Empty;
+
+            var result = from file in File.CreateFromPath(path)
+                         from excelFile in ExcelFile.CreateFromFile(file)
+                         from sheet in ExcelSheet.Find(excelFile, sheetName)
+                         from cellValueA in ExcelCell.FindInSheet(sheet, cellReferenceA)
+                         from cellValueB in ExcelCell.FindInSheet(sheet, cellReferenceB)
+                         from combined in ExcelCell.CombineValues(cellValueA, cellValueB)
+                         select combined;
+
+            if (result.Success)
+            {
+                // hacer algo con cell value
+            }
+        }
+
+        public void Step01_Sample_05_Match()
         {
             // Abrir fichero
             // Recoger excel
@@ -128,53 +214,5 @@ namespace lib.tests.ExcelSample
                 });
         }
 
-        public void Step01_Sample_05()
-        {
-            // Abrir fichero
-            // Recoger excel
-            // encontrar el sheet 
-            // recogert el cellvalue
-
-            var path = string.Empty;
-            var sheetName = string.Empty;
-            var cellReference = string.Empty;
-
-            var result = from file in File.CreateFromPath(path)
-                         from excelFile in ExcelFile.CreateFromFile(file)
-                         from sheet in ExcelSheet.Find(excelFile, sheetName)
-                         from cellValue in ExcelCell.FindInSheet(sheet, cellReference)
-                         select cellValue;
-
-            result.Match(cellValue =>
-            {
-                // hacer algo con cell value
-            });
-        }
-
-        public void Step01_Sample_06()
-        {
-            // Abrir fichero
-            // Recoger excel
-            // encontrar el sheet 
-            // recogert el cellvalue
-
-            var path = string.Empty;
-            var sheetName = string.Empty;
-            var cellReferenceA = string.Empty;
-            var cellReferenceB = string.Empty;
-
-            var result = from file in File.CreateFromPath(path)
-                         from excelFile in ExcelFile.CreateFromFile(file)
-                         from sheet in ExcelSheet.Find(excelFile, sheetName)
-                         from cellValueA in ExcelCell.FindInSheet(sheet, cellReferenceA)
-                         from cellValueB in ExcelCell.FindInSheet(sheet, cellReferenceB)
-                         from combined in ExcelCell.CombineValues(cellValueA, cellValueB)
-                         select combined;
-
-            result.Match(combinedValues =>
-            {
-                // hacer algo con cell value
-            });
-        }
     }
 }
