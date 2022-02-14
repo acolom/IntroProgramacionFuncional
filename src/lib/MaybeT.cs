@@ -61,13 +61,22 @@
 
         }
 
-        public void Match(Action<T> doOperation)
+        public void Match(Action<T> success, Action? none = null)
         {
             if (this.Success)
-                doOperation(this.Value);
+                success(this.Value);
+            else
+                none?.Invoke();
         }
 
-       
+        public TResult Match<TResult>(Func<T, TResult> success, Func<TResult> none)
+        {
+            return this.Success
+                ? success(this.value)
+                : none();
+        }
+
+
     }
 
     public static partial class MaybeExtensions
