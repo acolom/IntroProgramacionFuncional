@@ -88,10 +88,10 @@
             this Maybe<T> result,
             Func<T, Maybe<TK>> func,
             Func<T, TK, TR> project)
-    {
-        return result
-            .Bind(func)
-            .Map(x => project(result.Value, x));
+        {
+            return result
+                .Bind(func)
+                .Map(x => project(result.Value, x));
+        }
     }
-}
 }
