@@ -135,7 +135,8 @@ namespace lib.tests.ExcelSample
                    if (!cellValueB.Success)
                        return Maybe<(ExcelSheet Sheet, ExcelCell CellValueA, ExcelCell CellValueB)>.None();
                    return (Sheet: result.Sheet, CellValueA: result.CellValueA, CellValueB: cellValueB.Value);
-               });
+               })
+               .Bind((combine) => ExcelCell.CombineValues(combine.CellValueA, combine.CellValueB));
 
             if (cellResult.Success)
             {

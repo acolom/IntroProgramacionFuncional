@@ -6,13 +6,6 @@ namespace lib.tests
     public class MaybeTests
     {
         [Fact]
-        public void If_Access_Value_On_Fail_Expect_Exception()
-        {
-            var failed = Maybe<int>.None();
-            Assert.Throws<InvalidOperationException>(() => failed.Value);
-        }
-
-        [Fact]
         public void CheckIdentity()
         {
             Maybe<int> maybeInt = 1;
@@ -28,6 +21,13 @@ namespace lib.tests
 
             Assert.True(maybeInt.Success);
             Assert.True(maybeInt.Value == 1);
+        }
+
+        [Fact]
+        public void If_Access_Value_On_Fail_Expect_Exception()
+        {
+            var failed = Maybe<int>.None();
+            Assert.Throws<InvalidOperationException>(() => failed.Value);
         }
 
         [Fact]
@@ -49,6 +49,7 @@ namespace lib.tests
             Maybe<int> maybeInt = Maybe<int>.Ok(1);
             Func<int, Maybe<int>> returnFailure = (int a) => Maybe<int>.None();
             var returnSuccess = (int a) => Maybe<int>.Ok(a);
+            
             var executed = false;
             var markExecuted = (int a) =>
             {
