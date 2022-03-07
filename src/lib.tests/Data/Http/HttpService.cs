@@ -22,7 +22,6 @@ namespace lib.tests.Data.Http
         {
             var url = $"customer/{id}";
 
-            // return new CustomerInfo();
             return await DoCalll(() => client.GetAsync(url))
                 .Bind(TreatResponse);
 
@@ -41,7 +40,7 @@ namespace lib.tests.Data.Http
         public async Task<Result<List<AddressInfo>, BaseError>> GetCustomerAdresses(string id)
         {
             var url = $"customer/{id}/address";
-            // return new List<AddressInfo>();
+            
             return await DoCalll(() => client.GetAsync(url))
                 .Bind(TreatResponse);
 
@@ -59,7 +58,7 @@ namespace lib.tests.Data.Http
         public async Task<Result<InvoiceInfo, BaseError>> GetInvoiceInfo(string id, string invoiceId)
         {
             var url = $"customer/{id}/invoices/{invoiceId}";
-            // return new InvoiceInfo();
+            
             return await DoCalll(() => client.GetAsync(url))
                 .Bind(TreatResponse);
 
