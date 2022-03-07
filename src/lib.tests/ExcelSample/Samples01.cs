@@ -127,6 +127,7 @@ namespace lib.tests.ExcelSample
                    var cellValueA = ExcelCell.FindInSheet(sheet, cellReferenceA);
                    if (!cellValueA.Success)
                        return Maybe<(ExcelSheet Sheet, ExcelCell CellValueA)>.None();
+                   
                    return (Sheet: sheet, CellValueA: cellValueA.Value);
                })
                .Bind((result) =>

@@ -38,13 +38,6 @@
             return this.Success
                 ? Maybe<TResult>.Ok(transform(this.Value))
                 : Maybe<TResult>.None();
-
-
-            /* if (!this.Success)
-                 return Maybe<TResult>.None();
-
-             return transform(this.Value);*/
-
         }
 
         public Maybe<TResult> Bind<TResult>(Func<T, Maybe<TResult>> transform)
@@ -52,13 +45,6 @@
             return this.Success
                 ? transform(this.Value)
                 : Maybe<TResult>.None();
-
-
-            /* if (!this.Success)
-                 return Maybe<TResult>.None();
-
-             return transform(this.Value);*/
-
         }
 
         public void Match(Action<T> success, Action? none = null)
